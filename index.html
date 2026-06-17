@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>📖 Joyo Kanji Dictionary</title>
+    <link rel="stylesheet" href="css/joyo.css">
+	  <!-- Load kanji.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/kanji.js@latest/dist/kanji.min.js"></script>
+  <!-- PWA Manifest -->
+<link rel="manifest" href="manifest.json">
+
+<!-- Theme color for mobile browsers -->
+<meta name="theme-color" content="#1a73e8">
+
+<!-- Apple Touch Icon (for iOS home screen) -->
+<link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
+
+<!-- Mobile viewport (ensure this already exists) -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header no-print">
+        <div class="header-top">
+            <h1>📖 Joyo Kanji Dictionary</h1>
+            <div class="header-controls">
+                <button id="furiganaToggle" class="btn-toggle" title="Toggle furigana">🔤 Furigana: On</button>
+                <button id="ttsToggle" class="btn-toggle" title="Toggle TTS">🔊 TTS: On</button>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="level-buttons">
+                <button class="level-btn active" data-level="n5">N5 <span class="count">(103)</span></button>
+                <button class="level-btn" data-level="n4">N4 <span class="count">(200)</span></button>
+                <button class="level-btn" data-level="n3">N3 <span class="count">(400)</span></button>
+                <button class="level-btn" data-level="all">All <span class="count">(703)</span></button>
+            </div>
+            <div class="search-area">
+                <input type="text" id="searchInput" placeholder="🔍 Search kanji, reading, or meaning...">
+                <span id="resultCount">0 kanji</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Selection Toolbar -->
+        <div class="selection-toolbar no-print">
+            <div class="selection-controls">
+                <label>
+                    <input type="checkbox" id="selectAll"> Select All
+                </label>
+                <span id="selectedCount">0 selected</span>
+                <button id="printBtn" class="btn-print" disabled>🖨️ Print Practice Sheet</button>
+                <button id="clearSelectionBtn" class="btn-clear">✖ Clear Selection</button>
+            </div>
+        </div>
+
+        <!-- Kanji Grid -->
+        <div id="kanjiGrid" class="kanji-grid">
+            <!-- Rendered by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Detail Modal -->
+    <div id="detailModal" class="modal no-print">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div id="detailContent">
+                <!-- Rendered by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Data Files -->
+<!-- Load Data Files -->
+<script src="js/N5-Joyo.js"></script>
+<script src="js/N4-Joyo.js"></script>
+<script src="js/N3-Joyo.js"></script>
+<script src="js/joyo-core.js"></script>
+<script>
+  // Register Service Worker for PWA offline support
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then((registration) => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch((error) => {
+          console.log('Service Worker registration failed:', error);
+        });
+    });
+  }
+</script>
+</body>
+</html>
