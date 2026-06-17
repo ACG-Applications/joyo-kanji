@@ -1,69 +1,64 @@
-// sw.js - Service Worker for Joyo-Kanji PWA
+// sw.js - Service Worker for Joyo Kanji Dictionary
 
 const CACHE_NAME = 'joyo-kanji-v1';
-const urlsToCache = [
-  '/',
-  '/index.html',
-  '/css/joyo.css',
-  '/js/main.js', // Replace with your actual JS filename if different
-  '/manifest.json',
-  // Add any other important files here
-];
 
-// Install the service worker
-self.addEventListener('install', (event) => {
+// Install event - cache assets individually (more robust)
+self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => {
+      .then(cache => {
         console.log('Opened cache');
-        return cache.addAll(urlsToCache);
+        // Try to cache each file individually
+        const urls = [
+          '/joyo-kanji/',
+          '/joyo-kanji/index.html',
+          '/joyo-kanji/manifest.json',
+          '/joyo-kanji/css/joyo.css',
+          '/joyo-kanji/js/joyo-core.js',
+          '/joyo-kanji/js/N5-Joyo.js',
+          '/joyo-kanji/js/N4-Joyo.js',
+          '/joyo-kanji/js/N3-Joyo.js'
+        ];
+        
+        // Use addAll with a catch for each file
+        return Promise.all(
+          urls.map(url => {
+            return cache.add(url).catch(err => {
+              console.warn(`Failed to cache ${url}:`, err);
+              // Continue with other files
+            });
+          })
+        );
       })
-      .then(() => self.skipWaiting())
+      .catch(err => {
+        console.error('Cache failed:', err);
+      })
   );
 });
 
-// Activate and clean up old caches
-self.addEventListener('activate', (event) => {
-  const cacheWhitelist = [CACHE_NAME];
+// Activate event
+self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
+    caches.keys().then(keys => {
       return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (!cacheWhitelist.includes(cacheName)) {
-            return caches.delete(cacheName);
-          }
-        })
+        keys.filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
       );
-    }).then(() => self.clients.claim())
+    })
   );
 });
 
-// Fetch from cache first (offline-first strategy)
-self.addEventListener('fetch', (event) => {
+// Fetch event
+self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
-      .then((response) => {
-        // Cache hit - return response
-        if (response) {
-          return response;
+      .then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse;
         }
-        // Clone the request because it's a one-time use
-        const fetchRequest = event.request.clone();
-        return fetch(fetchRequest).then(
-          (response) => {
-            // Check if valid response
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-            // Clone the response because it's a one-time use
-            const responseToCache = response.clone();
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
-            return response;
-          }
-        );
+        return fetch(event.request).catch(() => {
+          return new Response('Offline - please connect to the internet');
+        });
       })
   );
 });
