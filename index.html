@@ -5,19 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>📖 Joyo Kanji Dictionary</title>
     <link rel="stylesheet" href="css/joyo.css">
-	  <!-- Load kanji.js library -->
-  <script src="https://cdn.jsdelivr.net/npm/kanji.js@latest/dist/kanji.min.js"></script>
-  <!-- PWA Manifest -->
-<link rel="manifest" href="manifest.json">
-
-<!-- Theme color for mobile browsers -->
-<meta name="theme-color" content="#1a73e8">
-
-<!-- Apple Touch Icon (for iOS home screen) -->
-<link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
-
-<!-- Mobile viewport (ensure this already exists) -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="stylesheet" href="css/quiz.css">
+    <!-- Load kanji.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/kanji.js@latest/dist/kanji.min.js"></script>
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#1a73e8">
+    <!-- Apple Touch Icon (for iOS home screen) -->
+    <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
+    <!-- Mobile viewport (ensure this already exists) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 </head>
 <body>
     <!-- Header -->
@@ -27,6 +25,7 @@
             <div class="header-controls">
                 <button id="furiganaToggle" class="btn-toggle" title="Toggle furigana">🔤 Furigana: On</button>
                 <button id="ttsToggle" class="btn-toggle" title="Toggle TTS">🔊 TTS: On</button>
+                <button id="quizBtn" class="btn-toggle" title="Take a kanji quiz" style="border-color:#1a73e8;color:#1a73e8;font-weight:700;">📝 Quiz</button>
             </div>
         </div>
         <div class="header-bottom">
@@ -73,25 +72,396 @@
         </div>
     </div>
 
+    <!-- ==================== QUIZ MODAL ==================== -->
+    <div id="quizModalOverlay" class="quiz-modal-overlay">
+        <div id="quizModal" class="quiz-modal" role="dialog" aria-label="Quiz Settings">
+            <button id="quizModalClose" class="quiz-modal-close" aria-label="Close quiz">&times;</button>
+            
+            <div id="quizSettingsArea">
+                <h2 id="quizModalTitle" class="quiz-modal-title">📝 Quiz Settings</h2>
+                <p class="quiz-modal-subtitle">Test your kanji knowledge</p>
+                
+                <!-- Level Selection -->
+                <div class="quiz-settings-group">
+                    <label class="quiz-settings-label">Level:</label>
+                    <div class="quiz-level-buttons">
+                        <button class="quiz-level-btn active" data-level="n5">N5</button>
+                        <button class="quiz-level-btn" data-level="n4">N4</button>
+                        <button class="quiz-level-btn" data-level="n3">N3</button>
+                        <button class="quiz-level-btn" data-level="all">All</button>
+                    </div>
+                </div>
+                
+                <!-- Quiz Type Selection - 3 Types Only -->
+                <div class="quiz-settings-group">
+                    <label class="quiz-settings-label">Quiz Type:</label>
+                    <div class="quiz-type-grid">
+                        <button class="quiz-type-btn active" data-type="onyomi">
+                            <span class="type-icon">🔊</span>
+                            <span class="type-label">On'yomi</span>
+                            <span class="type-desc">Show kanji, select reading</span>
+                        </button>
+                        <button class="quiz-type-btn" data-type="kunyomi">
+                            <span class="type-icon">🔊</span>
+                            <span class="type-label">Kun'yomi</span>
+                            <span class="type-desc">Show kanji, select reading</span>
+                        </button>
+                        <button class="quiz-type-btn" data-type="meaning">
+                            <span class="type-icon">📖</span>
+                            <span class="type-label">Meaning</span>
+                            <span class="type-desc">Show kanji, select meaning</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Question Count -->
+                <div class="quiz-settings-group">
+                    <label class="quiz-settings-label">Number of Questions:</label>
+                    <div class="quiz-count-row">
+                        <input type="number" id="quizCount" class="quiz-count-input" min="10" value="20" step="1">
+                        <span class="quiz-count-range">(10 - <span id="maxCount">100</span>)</span>
+                    </div>
+                    <div class="quiz-available-info">
+                        💡 <span id="availableCount">103</span> kanji available in <span id="levelName">N5</span>
+                    </div>
+                </div>
+                
+                <!-- Options -->
+                <div class="quiz-settings-group">
+                    <div class="quiz-toggle-group">
+                        <label class="quiz-toggle-item">
+                            <input type="checkbox" id="quizIncludeMastered" checked>
+                            <span class="toggle-label">Include Mastered Kanji</span>
+                        </label>
+                        <label class="quiz-toggle-item">
+                            <input type="checkbox" id="quizSoundEffects" checked>
+                            <span class="toggle-label">🔊 Sound Effects</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="quiz-actions">
+                    <button id="quizStartBtn" class="quiz-btn-start">🚀 Start Quiz</button>
+                    <button id="quizCancelBtn" class="quiz-btn-cancel">Cancel</button>
+                </div>
+            </div>
+            
+            <!-- Quiz Play Area -->
+            <div id="quizPlayArea" class="quiz-play-area">
+                <div id="quizHeader" class="quiz-header">
+                    <div class="quiz-header-left">
+                        <span id="quizHeaderLevel" class="quiz-header-level">N5</span>
+                        <span id="quizHeaderProgress" class="quiz-header-progress">Question 1/20</span>
+                    </div>
+                    <div class="quiz-header-score">
+                        <span class="correct">✅ <span id="quizHeaderCorrect">0</span></span>
+                        <span class="wrong">❌ <span id="quizHeaderWrong">0</span></span>
+                        <span id="quizHeaderTimer" class="quiz-header-timer">⏱️ 00:00</span>
+                    </div>
+                </div>
+                
+                <div class="quiz-question-area">
+                    <div id="quizQuestionPrompt" class="quiz-question-prompt">On'yomi Reading:</div>
+                    <div id="quizSentence" class="quiz-sentence">Loading...</div>
+                    <div id="quizOptionsContainer" class="quiz-options"></div>
+                    <div id="quizFeedback" class="quiz-feedback">
+                        <div id="quizFeedbackResult" class="quiz-feedback-result"></div>
+                        <div id="quizFeedbackAnswer" class="quiz-feedback-answer"></div>
+                        <div id="quizKanjiInfo" class="quiz-kanji-info"></div>
+                    </div>
+                    <button id="quizNextBtn" class="quiz-next-btn">Next →</button>
+                </div>
+                
+                <div class="quiz-controls">
+                    <button id="quizHintBtn" class="quiz-control-btn">💡 Hint</button>
+                    <button id="quizTtsBtn" class="quiz-control-btn">🔊 Listen</button>
+                    <button id="quizSkipBtn" class="quiz-control-btn">⏭️ Skip</button>
+                </div>
+            </div>
+            
+            <!-- Quiz Results Area -->
+            <div id="quizResultsArea" class="quiz-results">
+                <h2 class="quiz-results-title">🎯 Quiz Complete!</h2>
+                <div class="quiz-results-score-box">
+                    <div id="quizResultsScore" class="quiz-results-score"></div>
+                    <div id="quizResultsTime" class="quiz-results-time"></div>
+                </div>
+                <div class="quiz-breakdown">
+                    <div class="quiz-breakdown-title">📊 Breakdown by Type:</div>
+                    <div id="quizBreakdownContainer"></div>
+                </div>
+                <div class="quiz-weak-areas">
+                    <div class="quiz-weak-areas-title">Weakest Areas (Need More Practice):</div>
+                    <div id="quizWeakContainer"></div>
+                </div>
+                <div class="quiz-results-actions">
+                    <button id="quizReviewWrongBtn" class="quiz-results-btn">📝 Review Wrong Answers</button>
+                    <button id="quizRetryBtn" class="quiz-results-btn primary">🔄 Retry Quiz</button>
+                    <button id="quizContinueBtn" class="quiz-results-btn">✅ Continue to Grid</button>
+                </div>
+            </div>
+            
+            <!-- Quiz Review Area -->
+            <div id="quizReviewArea" style="display:none;">
+                <div id="quizReviewHeader" class="quiz-review-header">📝 Review Wrong Answers</div>
+                <div class="quiz-review-progress">
+                    <span id="quizReviewProgress">Progress: 0/0 reviewed</span>
+                    <div class="progress-bar">
+                        <div id="quizReviewProgressBar" class="progress-fill" style="width:0%"></div>
+                    </div>
+                </div>
+                <div id="quizReviewQuestion" class="quiz-question-area"></div>
+                <div id="quizReviewOptions" class="quiz-options"></div>
+                <div id="quizReviewFeedback" style="display:none;padding:12px;margin:12px 0;border-radius:8px;background:#f8f9fa;border:2px solid #e0e0e0;"></div>
+                <button id="quizReviewNextBtn" class="quiz-next-btn">Next →</button>
+                <div id="quizReviewComplete" style="display:none;">
+                    <div id="quizReviewScore" style="font-size:18px;font-weight:700;color:#000000;margin:12px 0;"></div>
+                    <div id="quizReviewWeak" style="margin:12px 0;"></div>
+                    <div class="quiz-results-actions">
+                        <button id="quizReviewPracticeBtn" class="quiz-results-btn">📚 Practice Weak Kanji</button>
+                        <button id="quizReviewContinueBtn" class="quiz-results-btn primary">✅ Continue to Grid</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Countdown Overlay -->
+    <div id="quizCountdownOverlay" class="quiz-countdown-overlay">
+        <div id="quizCountdownNumber" class="quiz-countdown-number">3</div>
+        <div id="quizCountdownLabel" class="quiz-countdown-label">Get Ready!</div>
+        <div id="quizCountdownInfo" class="quiz-countdown-info">Quiz: 20 questions · N5 · On'yomi</div>
+    </div>
+
+    <!-- ==================== SCRIPTS ==================== -->
     <!-- Load Data Files -->
-<!-- Load Data Files -->
-<script src="js/N5-Joyo.js"></script>
-<script src="js/N4-Joyo.js"></script>
-<script src="js/N3-Joyo.js"></script>
-<script src="js/joyo-core.js"></script>
-<script>
-  // Register Service Worker for PWA offline support
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/joyo-kanji/sw.js')
-      .then((registration) => {
-        console.log('Service Worker registered with scope:', registration.scope);
-      })
-      .catch((error) => {
-        console.log('Service Worker registration failed:', error);
-      });
-  });
-}
-</script>
+    <script src="js/N5-Joyo.js"></script>
+    <script src="js/N4-Joyo.js"></script>
+    <script src="js/N3-Joyo.js"></script>
+    
+    <!-- Load Core App -->
+    <script src="js/joyo-core.js"></script>
+
+    <!-- ==================== QUIZ SCRIPTS ==================== -->
+    <script src="js/quiz/quiz-sounds.js"></script>
+    <script src="js/quiz/quiz-mastery.js"></script>
+    <script src="js/quiz/quiz-progress.js"></script>
+    <script src="js/quiz/quiz-data.js"></script>
+    <script src="js/quiz/quiz-core.js"></script>
+    <script src="js/quiz/quiz-ui.js"></script>
+
+    <!-- ==================== SIMPLE QUIZ BUTTON HANDLER ==================== -->
+    <script>
+        (function() {
+            console.log('🔌 Simple Quiz Integration starting...');
+            
+            function initQuizButton() {
+                var quizBtn = document.getElementById('quizBtn');
+                if (!quizBtn) {
+                    console.warn('❌ Quiz button not found, retrying...');
+                    setTimeout(initQuizButton, 200);
+                    return;
+                }
+                
+                if (typeof QuizUI === 'undefined' || typeof QuizUI.openModal !== 'function') {
+                    console.warn('⏳ QuizUI not ready, retrying...');
+                    setTimeout(initQuizButton, 200);
+                    return;
+                }
+                
+                console.log('✅ QuizUI is ready!');
+                
+                // Remove any existing listeners
+                var newBtn = quizBtn.cloneNode(true);
+                quizBtn.parentNode.replaceChild(newBtn, quizBtn);
+                quizBtn = newBtn;
+                
+                quizBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('📝 Quiz button clicked!');
+                    QuizUI.openModal();
+                });
+                
+                console.log('✅ Quiz button integration complete!');
+            }
+            
+            // Start when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function() {
+                    setTimeout(initQuizButton, 300);
+                });
+            } else {
+                setTimeout(initQuizButton, 300);
+            }
+        })();
+    </script>
+
+    <!-- ==================== QUIZ COUNT VALIDATION ==================== -->
+    <script>
+        (function() {
+            // Wait for DOM to be ready
+            function setupQuizCountValidation() {
+                var countInput = document.getElementById('quizCount');
+                var maxDisplay = document.getElementById('maxCount');
+                var availableDisplay = document.getElementById('availableCount');
+                var levelNameDisplay = document.getElementById('levelName');
+                var levelBtns = document.querySelectorAll('.quiz-level-btn');
+                var includeMastered = document.getElementById('quizIncludeMastered');
+                
+                if (!countInput) {
+                    setTimeout(setupQuizCountValidation, 200);
+                    return;
+                }
+                
+                // Get available kanji count for a level
+                function getAvailableCount(level, includeMastered) {
+                    var allData = getDataForLevel(level);
+                    if (!allData || allData.length === 0) return 0;
+                    
+                    if (!includeMastered) {
+                        var mastery = getMasteryData();
+                        var levelMastery = mastery[level] || {};
+                        var quizType = document.querySelector('.quiz-type-btn.active');
+                        var type = quizType ? quizType.dataset.type : 'onyomi';
+                        
+                        var masteryTypeMap = {
+                            'onyomi': 'onyomi',
+                            'kunyomi': 'kunyomi',
+                            'meaning': 'meaning'
+                        };
+                        var masteryType = masteryTypeMap[type] || 'onyomi';
+                        
+                        var filtered = allData.filter(function(d) {
+                            var kanjiMastery = levelMastery[d.kanji];
+                            if (!kanjiMastery) return true;
+                            var typeData = kanjiMastery[masteryType];
+                            return !(typeData && typeData.mastered === true);
+                        });
+                        return filtered.length;
+                    }
+                    return allData.length;
+                }
+                
+                // Update available count display
+                function updateAvailableCount() {
+                    var level = 'n5';
+                    var activeLevelBtn = document.querySelector('.quiz-level-btn.active');
+                    if (activeLevelBtn) {
+                        level = activeLevelBtn.dataset.level;
+                    }
+                    
+                    var includeMasteredChecked = includeMastered ? includeMastered.checked : true;
+                    var count = getAvailableCount(level, includeMasteredChecked);
+                    
+                    var levelNames = {
+                        'n5': 'N5',
+                        'n4': 'N4',
+                        'n3': 'N3',
+                        'all': 'All Levels'
+                    };
+                    
+                    if (availableDisplay) availableDisplay.textContent = count;
+                    if (levelNameDisplay) levelNameDisplay.textContent = levelNames[level] || 'N5';
+                    if (maxDisplay) maxDisplay.textContent = Math.max(count, 10);
+                    
+                    // Update max attribute
+                    countInput.max = Math.max(count, 10);
+                    
+                    // Validate current value
+                    validateCount();
+                }
+                
+                // Validate count input
+                function validateCount() {
+                    var val = parseInt(countInput.value);
+                    var min = 10;
+                    var max = parseInt(countInput.max) || 100;
+                    
+                    if (isNaN(val) || val < min) {
+                        countInput.value = min;
+                    } else if (val > max) {
+                        countInput.value = max;
+                        // Show subtle notification
+                        var info = document.querySelector('.quiz-available-info');
+                        if (info) {
+                            info.style.color = '#c62828';
+                            setTimeout(function() {
+                                info.style.color = '';
+                            }, 2000);
+                        }
+                    }
+                }
+                
+                // Handle level change
+                function onLevelChange() {
+                    updateAvailableCount();
+                }
+                
+                // Handle type change (affects mastery filtering)
+                function onTypeChange() {
+                    updateAvailableCount();
+                }
+                
+                // Handle include mastered change
+                function onIncludeMasteredChange() {
+                    updateAvailableCount();
+                }
+                
+                // Set up level button listeners
+                levelBtns.forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        setTimeout(onLevelChange, 50);
+                    });
+                });
+                
+                // Set up type button listeners
+                var typeBtns = document.querySelectorAll('.quiz-type-btn');
+                typeBtns.forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        setTimeout(onTypeChange, 50);
+                    });
+                });
+                
+                // Set up include mastered listener
+                if (includeMastered) {
+                    includeMastered.addEventListener('change', onIncludeMasteredChange);
+                }
+                
+                // Set up count input validation
+                countInput.addEventListener('input', validateCount);
+                countInput.addEventListener('blur', validateCount);
+                
+                // Initial update
+                setTimeout(updateAvailableCount, 500);
+                
+                console.log('✅ Quiz count validation set up');
+            }
+            
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function() {
+                    setTimeout(setupQuizCountValidation, 400);
+                });
+            } else {
+                setTimeout(setupQuizCountValidation, 400);
+            }
+        })();
+    </script>
+
+    <!-- ==================== SERVICE WORKER (PWA) ==================== -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/joyo-kanji/sw.js')
+                    .then(function(registration) {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    })
+                    .catch(function(error) {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+<script src="js/N5-Quiz-Sentences.js"></script>	
 </body>
 </html>

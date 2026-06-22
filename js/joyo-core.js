@@ -535,6 +535,7 @@ dom.clearSelection.addEventListener('click', () => {
 dom.printBtn.addEventListener('click', generatePrint);
 
 // Furigana toggle
+// Furigana toggle
 dom.furiganaToggle.addEventListener('click', () => {
     furiganaHidden = !furiganaHidden;
     dom.furiganaToggle.textContent = furiganaHidden ? '🔤 Furigana: Off' : '🔤 Furigana: On';
@@ -543,6 +544,8 @@ dom.furiganaToggle.addEventListener('click', () => {
     if (dom.modal.classList.contains('open') && currentDetailKanji) {
         showDetail(currentDetailKanji);
     }
+    // Dispatch event for quiz to update
+    document.dispatchEvent(new CustomEvent('furiganaToggleChanged'));
 });
 
 // TTS toggle

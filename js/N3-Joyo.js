@@ -16,7 +16,7 @@ const joyoN3Data = [
     "kanji": "圧",
     "unicode": "5727",
     "onyomi": "アツ、エン、オウ",
-    "kunyomi": "おす、へす、おさえる、おさえる",
+    "kunyomi": "おす、へす、おさえる",
     "meaning": "pressure",
     "level": "n3",
  "example": {
@@ -484,7 +484,7 @@ const joyoN3Data = [
     "kanji": "押",
     "unicode": "62BC",
     "onyomi": "オウ",
-    "kunyomi": "おす、おし-、おっ-、おさえる、おさえる",
+    "kunyomi": "おす、おし-、おっ-、おさえる",
     "meaning": "push",
     "level": "n3",
  "example": {
@@ -653,7 +653,7 @@ const joyoN3Data = [
     "kanji": "果",
     "unicode": "679C",
     "onyomi": "カ",
-    "kunyomi": "はたす、はたす、-はたす、はてる、-はてる、はて",
+    "kunyomi": "はたす、はてる、はて",
     "meaning": "fruit",
     "level": "n3",
  "example": {
@@ -1004,7 +1004,7 @@ const joyoN3Data = [
     "kanji": "割",
     "unicode": "5272",
     "onyomi": "カツ",
-    "kunyomi": "わる、わり、わり、われる、さく",
+    "kunyomi": "わる、わり、われる、さく",
     "meaning": "proportion",
     "level": "n3",
  "example": {
@@ -1056,7 +1056,7 @@ const joyoN3Data = [
     "kanji": "巻",
     "unicode": "5DFB",
     "onyomi": "カン、ケン",
-    "kunyomi": "まく、まき、まき",
+    "kunyomi": "まく、まき",
     "meaning": "scroll",
     "level": "n3",
  "example": {
@@ -2473,7 +2473,7 @@ const joyoN3Data = [
     "kanji": "現",
     "unicode": "73FE",
     "onyomi": "ゲン",
-    "kunyomi": "あらわれる、あらわす、うつつ、うつつ",
+    "kunyomi": "あらわれる、あらわす、うつつ",
     "meaning": "present",
     "level": "n3",
  "example": {
@@ -2655,7 +2655,7 @@ const joyoN3Data = [
     "kanji": "交",
     "unicode": "4EA4",
     "onyomi": "コウ",
-    "kunyomi": "まじわる、まじえる、まじる、まじる、まざる、まぜる、-かう、かわす、かわす、こもごも",
+    "kunyomi": "まじわる、まじえる、まじる、まざる、まぜる、-かう、かわす、こもごも",
     "meaning": "mingle",
     "level": "n3",
  "example": {
@@ -2720,7 +2720,7 @@ const joyoN3Data = [
     "kanji": "向",
     "unicode": "5411",
     "onyomi": "コウ",
-    "kunyomi": "むく、むい、-むき、むける、-むけ、むかう、むかい、むこう、むこう-、むこ、むかい",
+    "kunyomi": "むく、むい、-むき、むける、-むけ、むかう、むかい、むこう、むこ",
     "meaning": "yonder",
     "level": "n3",
  "example": {
@@ -3201,7 +3201,7 @@ const joyoN3Data = [
     "kanji": "済",
     "unicode": "6E08",
     "onyomi": "サイ、セイ",
-    "kunyomi": "すむ、-ずみ、-ずみ、すまない、すます、-すます、すくう、なす、わたし、わたる",
+    "kunyomi": "すむ、-ずみ、すまない、すます、-すます、すくう、なす、わたし、わたる",
     "meaning": "finish",
     "level": "n3",
  "example": {
@@ -3214,7 +3214,7 @@ const joyoN3Data = [
     "kanji": "祭",
     "unicode": "796D",
     "onyomi": "サイ",
-    "kunyomi": "まつる、まつり、まつり",
+    "kunyomi": "まつる、まつり",
     "meaning": "ritual",
     "level": "n3",
  "example": {
@@ -3357,7 +3357,7 @@ const joyoN3Data = [
     "kanji": "刷",
     "unicode": "5237",
     "onyomi": "サツ",
-    "kunyomi": "する、-ずり、-ずり、はく",
+    "kunyomi": "する、-ずり、はく",
     "meaning": "printing",
     "level": "n3",
  "example": {
@@ -3513,7 +3513,7 @@ const joyoN3Data = [
     "kanji": "刺",
     "unicode": "523A",
     "onyomi": "シ",
-    "kunyomi": "さす、ささる、さし、さし、とげ",
+    "kunyomi": "さす、ささる、さし、とげ",
     "meaning": "thorn",
     "level": "n3",
  "example": {
@@ -3682,7 +3682,7 @@ const joyoN3Data = [
     "kanji": "歯",
     "unicode": "6B6F",
     "onyomi": "シ",
-    "kunyomi": "よわい、は、よわい、よわいする",
+    "kunyomi": "よわい、は、よわいする",
     "meaning": "tooth",
     "level": "n3",
  "example": {
@@ -3877,7 +3877,7 @@ const joyoN3Data = [
     "kanji": "取",
     "unicode": "53D6",
     "onyomi": "シュ",
-    "kunyomi": "とる、とり、とり-、とり、-どり",
+    "kunyomi": "とる、とり、-どり",
     "meaning": "take",
     "level": "n3",
  "example": {
@@ -4228,7 +4228,7 @@ const joyoN3Data = [
     "kanji": "勝",
     "unicode": "52DD",
     "onyomi": "ショウ",
-    "kunyomi": "かつ、-がち、まさる、すぐれる、かつ",
+    "kunyomi": "かつ、-がち、まさる、すぐれる",
     "meaning": "victory",
     "level": "n3",
  "example": {
@@ -5021,7 +5021,7 @@ const joyoN3Data = [
     "kanji": "折",
     "unicode": "6298",
     "onyomi": "セツ",
-    "kunyomi": "おる、おり、おり、-おり、おれる",
+    "kunyomi": "おる、おり、おれる",
     "meaning": "fold",
     "level": "n3",
  "example": {
@@ -5385,7 +5385,7 @@ const joyoN3Data = [
     "kanji": "総",
     "unicode": "7DCF",
     "onyomi": "ソウ",
-    "kunyomi": "すべて、すべて、ふさ",
+    "kunyomi": "すべて、ふさ",
     "meaning": "general",
     "level": "n3",
  "example": {
@@ -5658,7 +5658,7 @@ const joyoN3Data = [
     "kanji": "損",
     "unicode": "640D",
     "onyomi": "ソン",
-    "kunyomi": "そこなう、そこなう、-そこなう、そこねる、-そこねる",
+    "kunyomi": "そこなう、そこねる、-そこねる",
     "meaning": "damage",
     "level": "n3",
  "example": {
@@ -7426,7 +7426,7 @@ const joyoN3Data = [
     "kanji": "彼",
     "unicode": "5F7C",
     "onyomi": "ヒ",
-    "kunyomi": "かれ、かの、かの",
+    "kunyomi": "かれ、かの",
     "meaning": "he",
     "level": "n3",
  "example": {
@@ -7660,7 +7660,7 @@ const joyoN3Data = [
     "kanji": "表",
     "unicode": "8868",
     "onyomi": "ヒョウ",
-    "kunyomi": "おもて、-おもて、あらわす、あらわれる、あらわす",
+    "kunyomi": "おもて、-おもて、あらわす、あらわれる",
     "meaning": "surface",
     "level": "n3",
  "example": {
@@ -7712,7 +7712,7 @@ const joyoN3Data = [
     "kanji": "付",
     "unicode": "4ED8",
     "onyomi": "フ",
-    "kunyomi": "つける、-つける、-づける、つけ、つけ-、-つけ、-づけ、-づけ、つく、-づく、つき、-つき、-つき、-づき、-づき",
+    "kunyomi": "つける、-つける、-づける、つけ、つけ-、-つけ、-づけ、つく、-づく、つき、-つき、-づき",
     "meaning": "adhere",
     "level": "n3",
  "example": {
@@ -8206,7 +8206,7 @@ const joyoN3Data = [
     "kanji": "捕",
     "unicode": "6355",
     "onyomi": "ホ",
-    "kunyomi": "とらえる、とらわれる、とる、とらえる、とらわれる、つかまえる、つかまる",
+    "kunyomi": "とらえる、とらわれる、とる、つかまえる、つかまる",
     "meaning": "catch",
     "level": "n3",
  "example": {
@@ -9607,7 +9607,6 @@ const joyoN3Data = [
     }
   }
 ];
-
 // ==================== EXPORT ====================
 // Make available globally
 if (typeof module !== 'undefined' && module.exports) {

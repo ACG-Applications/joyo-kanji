@@ -354,7 +354,7 @@ const joyoN5Data = [
     "kanji": "後",
     "unicode": "5F8C",
     "onyomi": "ゴ、コウ",
-    "kunyomi": "のち、うしろ、うしろ、あと、おくれる",
+    "kunyomi": "のち、うしろ、あと、おくれる",
     "meaning": "behind",
     "level": "n5",
  "example": {
@@ -406,7 +406,7 @@ const joyoN5Data = [
     "kanji": "行",
     "unicode": "884C",
     "onyomi": "コウ、ギョウ、アン",
-    "kunyomi": "いく、ゆく、-ゆき、-ゆき、-いき、-いき、おこなう、おこなう",
+    "kunyomi": "いく、ゆく、-ゆき、-いき、おこなう",
     "meaning": "going",
     "level": "n5",
  "example": {
@@ -640,7 +640,7 @@ const joyoN5Data = [
     "kanji": "書",
     "unicode": "66F8",
     "onyomi": "ショ",
-    "kunyomi": "かく、-がき、-がき",
+    "kunyomi": "かく、-がき",
     "meaning": "write",
     "level": "n5",
  "example": {
@@ -757,7 +757,7 @@ const joyoN5Data = [
     "kanji": "生",
     "unicode": "751F",
     "onyomi": "セイ、ショウ",
-    "kunyomi": "いきる、いかす、いける、うまれる、うまれる、うまれ、うまれ、うむ、おう、はえる、はやす、き、なま、なま-、なる、なす、むす、-う",
+    "kunyomi": "いきる、いかす、いける、うまれる、うむ、おう、はえる、はやす、き、なま、なま-、なる、なす、むす、-う",
     "meaning": "life",
     "level": "n5",
  "example": {
@@ -1290,7 +1290,7 @@ const joyoN5Data = [
     "kanji": "来",
     "unicode": "6765",
     "onyomi": "ライ、タイ",
-    "kunyomi": "くる、きたる、きたす、きたす、きたる、き、こ",
+    "kunyomi": "くる、きたる、きたす、き、こ",
     "meaning": "come",
     "level": "n5",
  "example": {
@@ -1303,7 +1303,7 @@ const joyoN5Data = [
     "kanji": "立",
     "unicode": "7ACB",
     "onyomi": "リツ、リュウ、リットル",
-    "kunyomi": "たつ、-たつ、たち-、たてる、-たてる、たて-、たて-、-たて、-だて、-だてる",
+    "kunyomi": "たつ、-たつ、たち-、たてる、-たてる、たて-、-たて、-だて、-だてる",
     "meaning": "stand up",
     "level": "n5",
  "example": {

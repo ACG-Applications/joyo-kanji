@@ -367,7 +367,7 @@ const joyoN4Data = [
     "kanji": "起",
     "unicode": "8D77",
     "onyomi": "キ",
-    "kunyomi": "おきる、おこる、おこす、おこす、たつ",
+    "kunyomi": "おきる、おこる、おこす、たつ",
     "meaning": "rouse",
     "level": "n4",
  "example": {
@@ -1082,7 +1082,7 @@ const joyoN4Data = [
     "kanji": "終",
     "unicode": "7D42",
     "onyomi": "シュウ",
-    "kunyomi": "おわる、-おわる、おわる、おえる、つい、ついに",
+    "kunyomi": "おわる、-おわる、おえる、つい、ついに",
     "meaning": "end",
     "level": "n4",
  "example": {
@@ -1524,7 +1524,7 @@ const joyoN4Data = [
     "kanji": "代",
     "unicode": "4EE3",
     "onyomi": "ダイ、タイ",
-    "kunyomi": "かわる、かわる、かわり、かわり、-がわり、-がわり、かえる、よ、しろ",
+    "kunyomi": "かわる、かわり、-がわり、かえる、よ、しろ",
     "meaning": "substitute",
     "level": "n4",
  "example": {
