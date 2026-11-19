@@ -3,7 +3,7 @@
 // ============================================================
 
 // Bump this when files change: it is what makes a returning visitor pick up new code.
-const CACHE_NAME = 'joyo-kanji-v2';
+const CACHE_NAME = 'joyo-kanji-v3';
 
 // The app shell: everything needed to open the dictionary and start a quiz offline.
 // SVG stroke/animation files are NOT listed here (1000+ files); they are cached on
