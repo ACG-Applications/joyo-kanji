@@ -6,27 +6,22 @@
     <title>📖 Joyo Kanji Dictionary</title>
     <link rel="stylesheet" href="css/joyo.css">
     <link rel="stylesheet" href="css/quiz.css">
-    <!-- Load kanji.js library -->
-    <script src="https://cdn.jsdelivr.net/npm/kanji.js@latest/dist/kanji.min.js"></script>
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-    <!-- Theme color for mobile browsers -->
-    <meta name="theme-color" content="#1a73e8">
     <!-- Apple Touch Icon (for iOS home screen) -->
     <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
-    <!-- Mobile viewport (ensure this already exists) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#bc7a4a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#bc7a4a">
 </head>
 <body>
     <!-- Header -->
     <header class="app-header no-print">
         <div class="header-top">
-            <h1>📖 Joyo Kanji Dictionary</h1>
+            <div class="brand">
+                <img class="logo-mark" src="images/icons/antonio-mark.png" alt="" width="30" height="30">
+                <h1>📖 Joyo Kanji Dictionary</h1>
+            </div>
             <div class="header-controls">
                 <button id="furiganaToggle" class="btn-toggle" title="Toggle furigana">🔤 Furigana: On</button>
                 <button id="ttsToggle" class="btn-toggle" title="Toggle TTS">🔊 TTS: On</button>
@@ -467,6 +462,8 @@
             });
         }
     </script>
-<script src="js/N5-Quiz-Sentences.js"></script>	
+<script src="js/N5-Quiz-Sentences.js"></script>
+<script src="js/N4-Quiz-Sentences.js"></script>
+<script src="js/N3-Quiz-Sentences.js"></script>	
 </body>
 </html>

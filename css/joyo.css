@@ -58,6 +58,19 @@ body {
   margin-bottom: 16px;
 }
 
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-mark {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
 .header-top h1 {
   font-size: 24px;
   font-weight: 700;
