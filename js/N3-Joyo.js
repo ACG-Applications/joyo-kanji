@@ -6332,7 +6332,7 @@ const joyoN3Data = [
   },
   {
     "kanji": "程",
-    "unicode": "7A0C",
+    "unicode": "7A0B",
     "onyomi": "テイ",
     "kunyomi": "ほど、-ほど",
     "meaning": "extent",
